@@ -201,13 +201,19 @@ Use Dependency Injection design pattern to capture the things to test.
 	
 	```
 	func TestCountdown(t *testing.T) {
+		// Create a []byte buffer
 		buffer := &bytes.Buffer{}
+
+		// Pass the buffer as a dependency to the implementation
 		Countdown(buffer)
+
+		// Fetch the content of the bufer to compute the output
 		got := buffer.String()
 		want := `3
 	2
 	1
 	Go!`
+
 		if got != want {
 			t.Errorf("got %q want %q", got, want)
 		}
