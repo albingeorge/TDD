@@ -223,7 +223,7 @@ Use Dependency Injection design pattern to capture the things to test.
 	Execute test
 	
 	```
-	go test -run ^TestCountdown$ *.go
+	$ go test -run ^TestCountdown$ *.go
 	# command-line-arguments [command-line-arguments.test]
 	./countdown_test.go:14:2: undefined: Countdown
 	FAIL    command-line-arguments [build failed]
@@ -241,7 +241,7 @@ Use Dependency Injection design pattern to capture the things to test.
 	Execute the test
 	
 	```
-	go test -run ^TestCountdown$ *.go
+	$ go test -run ^TestCountdown$ *.go
 	--- FAIL: TestCountdown (0.00s)
 	    countdown_test.go:21: got "" want "3\n2\n1\nGo!"
 	FAIL
@@ -252,14 +252,16 @@ Use Dependency Injection design pattern to capture the things to test.
 	countdown.go
 	
 	```
+	// Accept the io.Writer interface
 	func Countdown(writer io.Writer) {
 		num := 3
 		for i := num; i > 0; i-- {
+			// Replaces the Println with Fprintln, which accepts an io.Writer interface
 			fmt.Fprintln(writer, i)
 			time.Sleep(1 * time.Second)
 		}
-	
-		fmt.Fprintln(writer, "GO!")
+
+		fmt.Fprint(writer, "Go!")
 	}
 	```
 	
@@ -282,6 +284,16 @@ main.go
 func main() {
 	countdown.Countdown(os.Stdout)
 }
+```
+
+#### Output
+
+```
+$ go run main.go
+3
+2
+1
+Go!
 ```
 
 ##### Advantages of using Dependency Injection in this approach
@@ -448,3 +460,14 @@ Go!--- PASS: TestCountdownNonTdd (3.00s)
 PASS
 ok      github.com/albingeorge/tdd/2_countdown  6.194s
 ```
+
+
+## References
+
+[Content of this talk](https://github.com/albingeorge/TDD)
+
+[Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/)
+
+[Accept interfaces, return struct](https://bryanftan.medium.com/accept-interfaces-return-structs-in-go-d4cab29a301b)
+
+[Dependency Injection design pattern](https://en.wikipedia.org/wiki/Dependency_injection)

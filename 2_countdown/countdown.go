@@ -20,9 +20,11 @@ func CountdownNonTdd() {
 	fmt.Print("Go!")
 }
 
+// Accept the io.Writer interface
 func Countdown(writer io.Writer) {
 	num := 3
 	for i := num; i > 0; i-- {
+		// Replaces the Println with Fprintln, which accepts an io.Writer interface
 		fmt.Fprintln(writer, i)
 		time.Sleep(1 * time.Second)
 	}
