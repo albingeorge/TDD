@@ -30,19 +30,22 @@ Go!`
 	}
 }
 
+// Create a mock implementation, which calls the Sleep() function
 type SleeperMock struct {
 	count int
 }
 
+// In this test, we intend to test how many times Sleep() were called
+// from within the function. We can extend this for more functionality if needed.
 func (m *SleeperMock) Sleep() {
-	m.count += 1
+	m.count++
 }
 
-// Can also test how many sleeps are done in the function
 func TestCountdownImproved(t *testing.T) {
 	buffer := &bytes.Buffer{}
 	sleep := SleeperMock{}
 
+	// For lack of a better name
 	CountdownImproved(buffer, &sleep)
 
 	got := buffer.String()

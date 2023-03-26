@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// Does not matter if the time.Sleep() method is called here
+// The responsibility of what Sleep() does is passed on to the
+// consumer of this function.
 type SleeperInterface interface {
 	Sleep()
 }
