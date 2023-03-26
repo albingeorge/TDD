@@ -317,19 +317,22 @@ Use mock to test the sleep functionality
 	countdown_test.go
 	
 	```
+	// Create a mock implementation, which calls the Sleep() function
 	type SleeperMock struct {
 		count int
 	}
 	
+	// In this test, we intend to test how many times Sleep() were called
+	// from within the function. We can extend this for more functionality if needed.
 	func (m *SleeperMock) Sleep() {
 		m.count++
 	}
 	
-	// Can also test how many sleeps are done in the function
 	func TestCountdownImproved(t *testing.T) {
 		buffer := &bytes.Buffer{}
 		sleep := SleeperMock{}
 	
+		// For lack of a better name
 		CountdownImproved(buffer, &sleep)
 	
 		got := buffer.String()
@@ -348,7 +351,7 @@ Use mock to test the sleep functionality
 	}
 	```
 	
-	Execute the test
+	Run the test
 	
 	```
 	$ go test -run ^TestCountdownImproved$ *.go
@@ -374,7 +377,7 @@ Use mock to test the sleep functionality
 	countdown_test.go
 	
 	```
-	go test -v -run ^TestCountdownImproved$ *.go
+	$ go test -v -run ^TestCountdownImproved$ *.go
 	=== RUN   TestCountdownImproved
 	    countdown_test.go:48: got "" want "3\n2\n1\nGo!"
 	    countdown_test.go:53: sleep count: got '\x00' want '\x03'
@@ -386,6 +389,9 @@ Use mock to test the sleep functionality
 	countdown.go
 	
 	```
+	// Does not matter if the time.Sleep() method is called here
+	// The responsibility of what Sleep() does is passed on to the
+	// consumer of this function.
 	type SleeperInterface interface {
 		Sleep()
 	}
@@ -410,6 +416,15 @@ Use mock to test the sleep functionality
 	PASS
 	```
 	
+Key takeaways for this approach
+
+ - Time it takes to run the test is 0.00s
+ - We're now able to test that Sleep() is called 3 times in the function
+
+Further improvements
+
+- How do we ensure that the Sleep() is called in the right sequence?
+
 	
 ##### Usage of countdown()
 
