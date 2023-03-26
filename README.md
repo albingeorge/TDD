@@ -23,12 +23,10 @@ TDD
 
 	
 ### Why follow TDD?
+- Helps us to develop the logic in our code
+- Very high test-coverage
 - Better structure to our code
 - Write testable code instead of restructuring the code afterwards
-- Learn different testing patterns, so that it can be applied to multiple projects. Example:
-	- Table pattern
-	- Golden files
-	- Setup/teardown
 
 ## How? / Let's learn by scenarios
 
